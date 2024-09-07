@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CGPA Marksheet</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <center><img src="/static/college_logo.png" alt="college_logo" width="500" height="100"></center>
+    <h1>Department of Information Technology</h1>
+    <h1>Your Academic Marksheet</h1>
+    <h2 class="cgpa">CGPA: {{ cgpa }}</h2>
+    {% for sem, details in results.items() %}
+    <h3>Semester {{ sem }}</h3>
+    <table border="1">
+        <tr>
+            <th>Subject</th>
+            <th>Credits</th>
+            <th>Grade</th>
+            <th>Points</th>
+        </tr>
+        {% for subject, credits, grade in details['subjects'] %}
+        <tr>
+            <td>{{ subject }}</td>
+            <td>{{ credits }}</td>
+            <td>{{ grade }}</td>
+            <td>{{ grade_to_points[grade] * credits }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="3">GPA</td>
+            <td>{{ details['gpa'] }}</td>
+        </tr>
+    </table>
+    {% endfor %}
+    <!-- <h3 class="hash">Blockchain Generation Code: {{ hash }}</h3> -->
+    <h2>Press Ctrl + P to print your Marksheet</h2>
+    <footer style="text-align: center; color: grey;">&copy; 2024 VEC . All Rights Reserved</footer>
+</body>
+</html>

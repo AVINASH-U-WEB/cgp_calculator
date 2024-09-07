@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Your Grades</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <center><img src="/static/college_logo.png" alt="college_logo" width="500" height="100"></center>
+    <h1>Enter Grades for Each Semester</h1>
+    <form action="" method="POST">
+        {% for semester in range(1, semester_count + 1) %}
+            <h2>Semester {{ semester }}</h2>
+            <table>
+                <tr>
+                    <th>Subject</th>
+                    <th>Credits</th>
+                    <th>Grade</th>
+                </tr>
+                {% for subject, credits in semesters[semester].items() %}
+                <tr>
+                    <td>{{ subject }}</td>
+                    <td>{{ credits }}</td>
+                    <td>
+                        <select name="sem{{ semester }}_{{ subject }}_grade" required>
+                            {% for grade, points in grade_to_points.items() %}
+                            <option value="{{ grade }}">{{ grade }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% endfor %}
+        <button type="submit">Calculate CGPA</button>
+    </form>
+</body>
+</html>
